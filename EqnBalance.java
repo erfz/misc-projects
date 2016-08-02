@@ -153,7 +153,7 @@ class RREF {
     }
 }
 
-*/
+/*
         double[] solnArray = new double[eqnSolnSys.length + 1];
         solnArray[0] = 1;
 
