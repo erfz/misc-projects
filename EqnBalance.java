@@ -152,3 +152,41 @@ class RREF {
         }
     }
 }
+
+*/
+        double[] solnArray = new double[eqnSolnSys.length + 1];
+        solnArray[0] = 1;
+
+        boolean loopBool = false;
+        while (!loopBool){
+            double smallestVal = Double.MAX_VALUE;
+            for (int i = 0; i < eqnSolnSys.length; ++i){
+                if (eqnSolnSys[i][eqnSolnSys[0].length - 1] < smallestVal && eqnSolnSys[i][eqnSolnSys[0].length - 1] != 1) smallestVal = eqnSolnSys[i][eqnSolnSys[0].length - 1];
+                solnArray[i + 1] = eqnSolnSys[i][eqnSolnSys[0].length - 1];
+            }
+            for (int i = 0; i < solnArray.length; ++i){
+                if (Math.abs(solnArray[i] - Math.round(solnArray[i])) < 0.01) solnArray[i] = Math.floor(solnArray[i]);
+                else{
+                    for (int j = 0; j < solnArray.length; ++j){
+                        solnArray[j] /= smallestVal;
+                        smallestVal = Double.MAX_VALUE;
+                    }
+                }
+                if (i + 1 == solnArray.length) loopBool = true;
+            }
+        }
+
+    static int gcd(int... vals){
+        int resultantSum = 0;
+        for (int i = 0; i < vals.length - 1; ++i){
+            while(vals[i]!=0 && vals[i+1]!=0)
+            {
+                int a = vals[i+1];
+                vals[i+1] = vals[i]%vals[i+1];
+                vals[i] = a;
+            }
+        }
+        for (int result : vals) resultantSum += result;
+        return resultantSum;
+    }
+*/
