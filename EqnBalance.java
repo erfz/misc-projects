@@ -213,3 +213,5 @@ class RREF {
         return resultantSum;
     }
 */
+
+// if(LHS.stripNumeric equals RHE.stripNumeric) --> for-loop ---> if(eleLHS.equals(eleRHS) coeff[i] = subscript[i]
