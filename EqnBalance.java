@@ -229,3 +229,4 @@ class RREF {
     }
 
 // if(LHS.stripNumeric equals RHE.stripNumeric) --> for-loop ---> if(eleLHS.equals(eleRHS) coeff[i] = subscript[i]
+// more intelligent control of matrix column # ... collapse like terms (eleNum[index] are equal)
