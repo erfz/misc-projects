@@ -6,7 +6,7 @@ public class EqnBalance { // put everything into a neat class
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the chemical equation:");
         String eqnStr = input.nextLine();
-        String[] eqnHS = eqnStr.replaceAll("\\s+","").split("=|(-+\\>)|(\\<-+)");
+        String[] eqnHS = eqnStr.replaceAll("\\s+","").split("=+|(-+\\>+)|(\\<+-+)");
         String[] eqnLHSplit = eqnHS[0].split("\\++");
         String[] eqnRHSplit = eqnHS[1].split("\\++");
 
