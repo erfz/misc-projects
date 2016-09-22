@@ -206,12 +206,15 @@ public class EqnBalance { // put everything into a neat class
         for (int i = 0; i < numElements; ++i){
             for (int j = 0; j < numMolecules; ++j){
                 int lastEleIndex = 0;
-                while (eqnMolecules[j].contains(eqnElements[i]) && eqnMolecules[j].indexOf(eqnElements[i], lastEleIndex) != -1 && eqnMolecules[j].substring(eqnMolecules[j].indexOf(eqnElements[i], lastEleIndex) + eqnElements[i].length(), eqnMolecules[j].length()).replaceAll("(\\d|\\p{Upper}).*", "").isEmpty()){
-                    lastEleIndex = eqnMolecules[j].indexOf(eqnElements[i], lastEleIndex) + eqnElements[i].length();
-                    // System.out.println(lastEleIndex);
-                    String temp = eqnMolecules[j].substring(lastEleIndex, eqnMolecules[j].length()).replaceAll("\\p{Alpha}.*", "");
-                    if (temp.isEmpty()) eqnSolnSys[i][j] += 1;
-                    else eqnSolnSys[i][j] += Double.parseDouble(temp);
+                while (eqnMolecules[j].contains(eqnElements[i]) && eqnMolecules[j].indexOf(eqnElements[i], lastEleIndex) != -1){
+                    if (eqnMolecules[j].substring(eqnMolecules[j].indexOf(eqnElements[i], lastEleIndex) + eqnElements[i].length(), eqnMolecules[j].length()).replaceAll("(\\d|\\p{Upper}).*", "").isEmpty()){
+                        lastEleIndex = eqnMolecules[j].indexOf(eqnElements[i], lastEleIndex) + eqnElements[i].length();
+                        // System.out.println(lastEleIndex);
+                        String temp = eqnMolecules[j].substring(lastEleIndex, eqnMolecules[j].length()).replaceAll("\\p{Alpha}.*", "");
+                        if (temp.isEmpty()) eqnSolnSys[i][j] += 1;
+                        else eqnSolnSys[i][j] += Double.parseDouble(temp);
+                    }
+                    else lastEleIndex = eqnMolecules[j].indexOf(eqnElements[i], lastEleIndex) + eqnElements[i].length();
                 }
             }
         }
