@@ -312,6 +312,7 @@ public class EqnBalance { // put everything into a neat class
         String[] printCoeffArray = new String[coeffArray.length];
         for (int i = 0; i < printCoeffArray.length; ++i){
             if (coeffArray[i] == 1) printCoeffArray[i] = "";
+            else if (coeffArray[i] == 0) printCoeffArray[i] = "*";
             else printCoeffArray[i] = Integer.toString(coeffArray[i]);
         }
 
