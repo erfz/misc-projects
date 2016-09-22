@@ -11,6 +11,6 @@ Separate reactants/products with "+" (spaces are optional) and the reactants and
 
 This is only the core algorithm with basic functionality--the apk may be installed but lacks anything special. Enable installation from other sources to install it in android.
 
-* denotes a product that was not chemically altered in the balancing.
+* denotes a reactant/product that was not chemically altered in the balancing.
 
 Made by Jason Guo, last updated 9/4/2016.
