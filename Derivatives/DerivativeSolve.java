@@ -1,12 +1,14 @@
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
+import java.math.BigInteger;
 
 public class DerivativeSolve{
 	public static void main(String[] args){
 		Expression f = new ExpressionBuilder("x^3")
                 .variables("x")
                 .build();
-        System.out.println(nMethod(f, 200, "x", -100, 100));
+        System.out.println(numericDer(f, 2, "x", 5));
+        System.out.println(numericDer(f, "x", 5));
 	}
 	static double numericDer(Expression func, String var, double evalAt){
 		double x = evalAt;
@@ -21,6 +23,19 @@ public class DerivativeSolve{
 		double derivative = (a-b) / (2*h); // need to write a function class...
 		return derivative;
 	}
+	static double numericDer(Expression func, int timesDiff, String var, double evalAt){ // FIX
+		double x = evalAt;
+		int n = timesDiff;
+		double h = 0.0001;	// correct choice of h here..........???
+		double sum = 0;
+
+		for (int i = 0; i < n; ++i){
+			sum += Math.pow(-1, i) * binomial(n-1, i).intValue() * numericDer(func, var, x + h*(n - 1 - 2*i));
+		}
+		sum /= Math.pow(2*h, n-1);
+
+		return sum;
+	}
 	static double nMethod(Expression func, int numIter, String var, double a, double b){ // Newton's Method
 		double x = findStartVal(func, var, a, b);
 		func.setVariable(var, x);
@@ -28,7 +43,20 @@ public class DerivativeSolve{
 		double fDerEval = numericDer(func, var, x);
 
 		while (numIter > 0){
-			x -= fEval/fDerEval;
+			if (fDerEval == 0){
+				double h = x * Math.sqrt(Math.ulp(1.0));
+				double leftDer = numericDer(func, var, x-h);
+				double rightDer = numericDer(func, var, x+h);
+				if (fEval < 0){
+					if (leftDer < 0) x -= 0.01;
+					else if (rightDer > 0) x += 0.01;
+				}
+				else if (fEval > 0){
+					if (leftDer > 0) x -= 0.01;
+					else if (rightDer < 0) x += 0.01;
+				}
+			}
+			else x -= fEval/fDerEval;
 			func.setVariable(var, x);
 			fEval = func.evaluate();
 			fDerEval = numericDer(func, var, x);
@@ -64,5 +92,13 @@ public class DerivativeSolve{
 			else return a;
 		}
 		return (2*a - delta)/2;
+	}
+	private static BigInteger binomial(final int N, final int K) {
+	    BigInteger ret = BigInteger.ONE;
+	    for (int k = 0; k < K; k++) {
+	        ret = ret.multiply(BigInteger.valueOf(N-k))
+	                 .divide(BigInteger.valueOf(k+1));
+	    }
+	    return ret;
 	}
 }
