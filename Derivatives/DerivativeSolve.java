@@ -4,15 +4,17 @@ import java.math.BigInteger;
 
 public class DerivativeSolve{
 	public static void main(String[] args){
-		Expression f = new ExpressionBuilder("x^3")
+		Expression f = new ExpressionBuilder("x^10")
                 .variables("x")
                 .build();
-        System.out.println(numericDer(f, 2, "x", 5));
-        System.out.println(numericDer(f, "x", 5));
+        System.out.println(numericDer(f, "x", 0));
+        System.out.println(numericDer(f, 6, "x", 5));
 	}
 	static double numericDer(Expression func, String var, double evalAt){
 		double x = evalAt;
-		double h = x * Math.sqrt(Math.ulp(1.0)); // h = sqrt(ɛ) * x is suitable (noted in Numerical Differentiation) -- where should ɛ be evaluated at however?
+		double h = 0;
+		if (evalAt != 0) h = x * Math.sqrt(Math.ulp(1.0)); // h = sqrt(ɛ) * x is suitable (noted in Numerical Differentiation) -- where should ɛ be evaluated at however?
+		else h = Math.sqrt(Math.ulp(1.0));
 
 		func.setVariable(var, x+h);
 		double a = func.evaluate();
@@ -23,17 +25,28 @@ public class DerivativeSolve{
 		double derivative = (a-b) / (2*h); // need to write a function class...
 		return derivative;
 	}
-	static double numericDer(Expression func, int timesDiff, String var, double evalAt){ // FIX
-		double x = evalAt;
+	static double numericDer(Expression func, int timesDiff, String var, double evalAt){ // ABSOLUTELY REQUIRE BIG DECIMAL
 		int n = timesDiff;
-		double h = 0.0001;	// correct choice of h here..........???
+		int m = 0; // evaluate in terms of mth derivs.
+
+		double x = evalAt;
+		double h = 0;
+		if (evalAt != 0) h = x * Math.sqrt(Math.ulp(1.0)); // h = sqrt(ɛ) * x is suitable (noted in Numerical Differentiation) -- where should ɛ be evaluated at however?
+		else h = Math.sqrt(Math.ulp(1.0));
 		double sum = 0;
 
-		for (int i = 0; i < n; ++i){
-			sum += Math.pow(-1, i) * binomial(n-1, i).intValue() * numericDer(func, var, x + h*(n - 1 - 2*i));
+		for (int i = 0; i < n - m + 1; ++i){
+			func.setVariable(var, x + h*(n - m - i));
+			sum += Math.pow(-1, i) * binomial(n - m, i).intValue() * func.evaluate();
+			System.out.println(sum);
 		}
-		sum /= Math.pow(2*h, n-1);
+		System.out.println();
 
+		int j = n - m;
+		while(j > 0){
+			sum /= h;
+			--j;
+		}
 		return sum;
 	}
 	static double nMethod(Expression func, int numIter, String var, double a, double b){ // Newton's Method
