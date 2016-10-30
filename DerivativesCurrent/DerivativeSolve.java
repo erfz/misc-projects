@@ -12,15 +12,15 @@ public class DerivativeSolve{
 	public static final int NEWTON_NUM_DECIMAL = 10;
 
 	public static void main(String[] args){
-		Expression f = new Expression("x^3 - 2*x + 5", MathContext.UNLIMITED); // always evaluate in RAD (evalex)
+		Expression f = new Expression("x^9", MathContext.UNLIMITED); // always evaluate in RAD (evalex)
         // System.out.println(numericDer(f, "x", new BigDecimal(Expression.PI.doubleValue()/36)).toString());
         // System.out.println(nMethod(f, 10, "x", new BigDecimal("5"), new BigDecimal("-5")));
         // System.out.println(numericDer(f, 6, "x", 5));
-        System.out.println(numericDer(f, 3, "x", new BigDecimal("100000000000000")));
+        System.out.println(numericDer(f, 7, "x", new BigDecimal("5")));
 	}
 	static BigDecimal numericDer(Expression func, String var, BigDecimal evalAt){
 		BigDecimal x = evalAt;
-		BigDecimal h = H_VALUE; // double implementation of functions breaks with smaller h's --- make this scale with powers
+		BigDecimal h = new BigDecimal("1E-512"); // double implementation of functions breaks with smaller h's --- make this scale with powers
 		BigDecimal a = func.with(var, x.add(h)).eval();
 		BigDecimal b = func.with(var, x.subtract(h)).eval();
 		// System.out.println(a.toString() + "\n" + b.toString() + "\n" + a.subtract(b).toString() + "\n" + h.toString());
@@ -33,15 +33,15 @@ public class DerivativeSolve{
 		int m = 0; // evaluate in terms of mth derivs.
 
 		BigDecimal x = evalAt;
-		BigDecimal h = H_VALUE.pow(n-m); // scale with pow((n-m) * greatest exponent if applicable))
+		BigDecimal h = new BigDecimal("1E-512"); // scale with pow((n-m) * greatest exponent if applicable)) ----- H_VALUE.pow(n-m)
 		BigDecimal sum = BigDecimal.ZERO;
 
 		for (int i = 0; i < n - m + 1; ++i){
-			sum = sum.add(new BigDecimal(Math.pow(-1, i)).multiply(new BigDecimal(binomial(n - m, i))).multiply(func.with(var, x.add(h.multiply(new BigDecimal(n).subtract(new BigDecimal(m)).subtract(new BigDecimal(i))))).eval()));
+			sum = sum.add(new BigDecimal(Math.pow(-1, i)).multiply(new BigDecimal(binomial(n - m, i))).multiply(func.with(var, x.add(h.multiply(new BigDecimal(n).subtract(new BigDecimal(m)).subtract(new BigDecimal(2*i))))).eval()));
 			System.out.println(sum);
 		}
 
-		sum = sum.divide(h.pow(n-m));
+		sum = sum.divide(h.multiply(new BigDecimal("2")).pow(n-m));
 		return sum;
 	}
 	static BigDecimal nMethod(Expression func, int numIter, String var, BigDecimal a, BigDecimal b){ // Newton's Method
