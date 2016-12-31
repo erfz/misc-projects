@@ -1,4 +1,4 @@
-public class EulerMethod{
+public class EulerMethodOLD{
 	public static void main(String[] args){
 		double t = 0; // initial condition
 		double x = 1; // x(t_0) = x_0
