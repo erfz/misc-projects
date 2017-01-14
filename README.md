@@ -6,7 +6,7 @@ EqnBalance:
   - Exception handling
   - Grab equation from camera
   - Integration with keyboard for easier typing?
-  - "splitParts.length" --> "splitParts.length - 1" (fixes Array Index error; does it cause problems?) {only changed in apk code}
+  - "splitParts.length" --> "splitParts.length - 1" (fixes Array Index error; does it cause problems?)
   
 Derivatives:
 
