@@ -26,7 +26,7 @@ public class EqnBalance { // put everything into a neat class
         for (int i = 0; i < eqnLHSplit.length; ++i){
             if (eqnLHSplit[i].contains("(") && eqnLHSplit[i].contains(")")){
                 String[] splitParts = eqnLHSplit[i].split("(\\(+|\\)+)");
-                for (int j = 0; j < splitParts.length; ++j){
+                for (int j = 0; j < splitParts.length - 1; ++j){
                     if (eqnLHSplit[i].contains("(" + splitParts[j] + ")")){
                         String compoundString = "";
                         int parenNumber = 0;
@@ -52,7 +52,7 @@ public class EqnBalance { // put everything into a neat class
         for (int i = 0; i < eqnRHSplit.length; ++i){
             if (eqnRHSplit[i].contains("(") && eqnRHSplit[i].contains(")")){
                 String[] splitParts = eqnRHSplit[i].split("(\\(+|\\)+)");
-                for (int j = 0; j < splitParts.length; ++j){
+                for (int j = 0; j < splitParts.length - 1; ++j){
                     if (eqnRHSplit[i].contains("(" + splitParts[j] + ")")){
                         String compoundString = "";
                         int parenNumber = 0;
