@@ -13,4 +13,4 @@ This is only the core algorithm with basic functionality--the apk may be install
 
 * denotes a reactant/product that was not chemically altered in the balancing.
 
-Made by Jason Guo, last updated 9/4/2016.
+Made by Jason Guo, last updated 1/14/2017.
