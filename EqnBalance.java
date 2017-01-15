@@ -137,6 +137,11 @@ public class EqnBalance { // put everything into a neat class
             eqnElements[eqnElements.length - 1] = tempArray[tempArray.length - 1];
         }
 
+        for(String element : eqnElements){
+        	if (!(eqnHS[0].contains(element) && eqnHS[1].contains(element)))
+        		throw new IllegalArgumentException("Your equation is invalid.");
+        }
+
         int numMolecules = 0;
         int matrixNegIndex = 0;
         { // find actual # of molecules
