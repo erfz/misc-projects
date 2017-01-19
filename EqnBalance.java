@@ -88,7 +88,7 @@ public class EqnBalance { // put everything into a neat class
             eqnRHEle[i] = eqnRHEleNum[i].replaceAll("[0-9]","");
         }
 
-        // System.out.println(Arrays.toString(eqnLHEle) + eqnLHEle.length + "\n" + Arrays.toString(eqnRHEle) + eqnRHEle.length);            // debug
+        System.out.println(Arrays.toString(eqnLHEle) + eqnLHEle.length + "\n" + Arrays.toString(eqnRHEle) + eqnRHEle.length);            // debug
 
         int numElements = 0;
         { // find actual # of elements
@@ -137,9 +137,12 @@ public class EqnBalance { // put everything into a neat class
             eqnElements[eqnElements.length - 1] = tempArray[tempArray.length - 1];
         }
 
-        for(String element : eqnElements){
-        	if (!(eqnHS[0].contains(element) && eqnHS[1].contains(element)))
-        		throw new IllegalArgumentException("Your equation is invalid.");
+        for(String LHEle : eqnLHEle){
+            boolean elementMatch = false;
+            for (String RHEle : eqnRHEle){
+                if (LHEle.equals(RHEle)) elementMatch = true;
+            }
+            if (!elementMatch) throw new IllegalArgumentException("Your equation is invalid.");
         }
 
         int numMolecules = 0;
