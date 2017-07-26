@@ -7,6 +7,7 @@ EqnBalance:
   - Grab equation from camera
   - Integration with keyboard for easier typing?
   - Deal with brackets
+  - IN ANDROID VERSION ONLY: bug near line 100, H = H2 doesn't work; change length of R/LElenum and indices on arraycopy (?)
   
 Derivatives:
 
