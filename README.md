@@ -1,12 +1,5 @@
-# projects
+# Projects
 
-EqnBalance:
-
-  - Reactant/product prediction
-  - Exception handling
-  - Integration with keyboard for easier typing?
-  - Grab equation from camera + full eqn text
-  
 Derivatives:
 
   - http://projects.congrace.de/exp4j/index.html
